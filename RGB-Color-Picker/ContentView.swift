@@ -54,6 +54,7 @@ struct ContentView: View {
                     
                     Text(hexString)
                         .font(.title)
+                        .bold()
                         .scaleEffect(didCopyPulse ? 1.12 : 1.0)
                         .animation(.spring(response: 0.22, dampingFraction: 0.6), value: didCopyPulse)
                         .sensoryFeedback(.impact(weight: .medium, intensity: 0.8), trigger: didCopyPulse)
