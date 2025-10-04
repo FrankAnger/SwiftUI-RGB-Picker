@@ -18,6 +18,8 @@ struct ColorComponentSlider: View {
             Text("0")
         } maximumValueLabel: {
             Text("255")
+        } onEditingChanged: {_ in 
+            print($value)
         }
         .tint(tint)
     }
