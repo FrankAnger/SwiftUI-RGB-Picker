@@ -5,6 +5,7 @@
 //  Created by FrankAnger on 04.10.2025.
 //
 import SwiftUI
+import AVFoundation
 
 struct ColorComponentSlider: View {
     let title: String
@@ -18,9 +19,11 @@ struct ColorComponentSlider: View {
             Text("0")
         } maximumValueLabel: {
             Text("255")
-        } onEditingChanged: {_ in 
-            print($value)
         }
         .tint(tint)
+        .sensoryFeedback(.impact(weight: .light, intensity: 0.4), trigger: Int(value))
+        .onChange(of: Int(value)) {
+            SoundFeedback.shared.playTick()
+        }
     }
 }
