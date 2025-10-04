@@ -7,11 +7,15 @@
 
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var colorSliders: [ColorSlider]
     @State private var didEnsureSlider = false
+    @State private var didCopyPulse = false
+    @State private var showCopiedLabel = false
+    @Query private var colorSliders: [ColorSlider]
+
     
     private var colorSlider: ColorSlider? { colorSliders.first }
 
@@ -41,10 +45,49 @@ struct ContentView: View {
                     @Bindable var slider = sliders
                     
                     Text("R: \(Int(slider.red)), G: \(Int(slider.green)), B: \(Int(slider.blue))")
-                    Text(String(format: "#%02X%02X%02X",
+                        .font(.headline)
+                    
+                    let hexString = String(format: "#%02X%02X%02X",
                         Int(slider.red),
                         Int(slider.green),
-                        Int(slider.blue)))
+                        Int(slider.blue))
+                    
+                    Text(hexString)
+                        .font(.title)
+                        .scaleEffect(didCopyPulse ? 1.12 : 1.0)
+                        .animation(.spring(response: 0.22, dampingFraction: 0.6), value: didCopyPulse)
+                        .sensoryFeedback(.impact(weight: .medium, intensity: 0.8), trigger: didCopyPulse)
+                        .overlay(alignment: .bottom) {
+                            if showCopiedLabel {
+                                Text("Copied!")
+                                    .font(.caption.bold())
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                                    .background(.ultraThinMaterial, in: Capsule())
+                                    .offset(y: -60)
+                                    .transition(.opacity.combined(with: .scale))
+                            }
+                        }
+                        .onTapGesture {
+                            UIPasteboard.general.string = hexString
+                            Task {
+                                // Pulse up
+                                withAnimation(.spring(response: 0.22, dampingFraction: 0.6)) {
+                                    didCopyPulse = true
+                                    showCopiedLabel = true
+                                }
+                                // Let the pulse complete
+                                try? await Task.sleep(nanoseconds: 180_000_000) // ~0.18s
+                                withAnimation(.spring(response: 0.22, dampingFraction: 0.7)) {
+                                    didCopyPulse = false
+                                }
+                                // Keep the label a bit longer, then fade it out
+                                try? await Task.sleep(nanoseconds: 720_000_000) // additional ~0.72s (total ~0.9s)
+                                withAnimation(.easeOut(duration: 0.3)) {
+                                    showCopiedLabel = false
+                                }
+                            }
+                        }
                     
                     VStack(spacing: 16) {
                         ColorComponentSlider(title: "Red", tint: .red, value: $slider.red)
