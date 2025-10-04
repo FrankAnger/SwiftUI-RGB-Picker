@@ -2,7 +2,7 @@
 //  Slider.swift
 //  RGB-Color-Picker
 //
-//  Created by Constantine Grinko on 04.10.2025.
+//  Created by FrankAnger on 04.10.2025.
 //
 
 import Foundation
