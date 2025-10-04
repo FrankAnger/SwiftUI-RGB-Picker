@@ -2,7 +2,7 @@
 //  RGB_Color_PickerApp.swift
 //  RGB-Color-Picker
 //
-//  Created by Constantine Grinko on 03.10.2025.
+//  Created by FrankAnger on 03.10.2025.
 //
 
 import SwiftUI
@@ -30,3 +30,4 @@ struct RGB_Color_PickerApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
+

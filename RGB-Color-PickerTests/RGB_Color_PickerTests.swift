@@ -2,7 +2,7 @@
 //  RGB_Color_PickerTests.swift
 //  RGB-Color-PickerTests
 //
-//  Created by Constantine Grinko on 03.10.2025.
+//  Created by FrankAnger on 03.10.2025.
 //
 
 import Testing

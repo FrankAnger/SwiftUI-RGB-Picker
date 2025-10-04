@@ -2,7 +2,7 @@
 //  Item.swift
 //  RGB-Color-Picker
 //
-//  Created by Constantine Grinko on 03.10.2025.
+//  Created by FrankAnger on 03.10.2025.
 //
 
 import Foundation
@@ -16,3 +16,4 @@ final class Item {
         self.timestamp = timestamp
     }
 }
+

@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  RGB-Color-Picker
 //
-//  Created by Constantine Grinko on 03.10.2025.
+//  Created by FrankAnger on 03.10.2025.
 //
 
 import SwiftUI
@@ -11,6 +11,10 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @Query private var colorSliders: [ColorSlider]
+    @State private var didEnsureSlider = false
+    
+    private var colorSlider: ColorSlider? { colorSliders.first }
 
     var body: some View {
         NavigationSplitView {
@@ -36,6 +40,15 @@ struct ContentView: View {
             }
         } detail: {
             Text("Select an item")
+        }
+        .task {
+            guard !didEnsureSlider else { return }
+            didEnsureSlider = true
+            
+            if colorSliders.isEmpty {
+                let newSlider = ColorSlider(red: 0, green: 0, blue: 0)
+                modelContext.insert(newSlider)
+            }
         }
     }
 

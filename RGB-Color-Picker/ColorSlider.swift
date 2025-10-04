@@ -9,15 +9,15 @@ import Foundation
 import SwiftData
 
 @Model
-final class Slider {
-    var Red: any Numeric
-    var Green: any Numeric
-    var Blue: any Numeric
+final class ColorSlider {
+    var red: Int
+    var green: Int
+    var blue: Int
     
-    init(Red: any Numeric, Green: any Numeric, Blue: any Numeric) {
-        self.Red = Red
-        self.Green = Green
-        self.Blue = Blue
+    init(red: Int, green: Int, blue: Int) {
+        self.red = red
+        self.green = green
+        self.blue = blue
     }
     
 }

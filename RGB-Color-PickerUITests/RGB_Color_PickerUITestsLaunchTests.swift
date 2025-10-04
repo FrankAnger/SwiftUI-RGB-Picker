@@ -2,7 +2,7 @@
 //  RGB_Color_PickerUITestsLaunchTests.swift
 //  RGB-Color-PickerUITests
 //
-//  Created by Constantine Grinko on 03.10.2025.
+//  Created by FrankAnger on 03.10.2025.
 //
 
 import XCTest
@@ -31,3 +31,4 @@ final class RGB_Color_PickerUITestsLaunchTests: XCTestCase {
         add(attachment)
     }
 }
+
